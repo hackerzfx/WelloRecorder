@@ -35,7 +35,7 @@ New users automatically get a **20-minute free trial** (0.34 hours) to test the 
 
 ### 🔓 Recording with XVast
 Launch **XVast** directly from Wello Recorder.
-> **Note:** If it opens in an isolated profile, you can simply **switch to your original profile** within the browser to access all your saved logins, passwords, and data.
+> **Note:** When it opens in an isolated profile, you can simply Minimize it and **switch to your original profile** within the browser to access all your saved logins, passwords, and data.
 
 **Note:** Windows may show a warning on first run. Click "More Info" → "Run Anyway".
 
