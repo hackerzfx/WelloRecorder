@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wello Recorder</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Fonts: Inter and Outfit for premium look -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="branding">
+                <img src="icon.png" alt="Logo" class="app-icon">
+                <div class="logo">Wello Recorder</div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <button id="buy-license-btn" class="buy-btn-header">💎 Buy License</button>
+                <div class="profile-avatar" id="profile-trigger">
+                    <img src="profile.png" alt="Profile">
+                </div>
+
+                <div class="window-controls" style="position: relative;">
+
+                    <button class="win-btn minimize" id="minimize-app-btn" title="Minimize">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </button>
+                    <button class="win-btn close" id="close-app-btn" title="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- License Status Badge -->
+        <div id="license-status" class="license-badge hidden">
+            🕒 <span id="license-remaining">--</span>h left
+        </div>
+
+        <!-- License Activation Modal -->
+        <div id="license-modal" class="modal-overlay" style="z-index: 30000;">
+            <div class="profile-card" style="max-width: 450px;">
+                <div class="section-title" style="margin-bottom: 20px; font-size: 20px;">🔐 License Required</div>
+                <p style="color: #ccc; margin-bottom: 25px; line-height: 1.5;">
+                    Enter your license key to unlock Wello Recorder.<br>
+                    <span style="font-size: 12px; color: #888;">Example: WELLO-A1B2-010-F3E1</span>
+                </p>
+
+                <input type="text" id="license-input" placeholder="WELLO-XXXX-XXX-XXXX"
+                    style="width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: white; border-radius: 12px; text-align: center; font-family: 'Courier New', monospace; font-size: 16px; letter-spacing: 1px;">
+
+                <p id="license-error"
+                    style="color: #ff4444; font-size: 13px; margin-bottom: 20px; display: none; background: rgba(255, 68, 68, 0.1); padding: 10px; border-radius: 8px;">
+                </p>
+
+                <button id="activate-btn" class="start-btn" style="width: 100%; margin: 0; font-size: 16px;">Activate
+                    License</button>
+            </div>
+        </div>
+
+        <!-- Profile Modal -->
+        <div class="modal-overlay" id="profile-modal">
+            <div class="profile-card">
+                <div class="modal-avatar">
+                    <img src="profile.png" alt="Hamza Modder">
+                </div>
+                <div class="profile-name">HAMZA MODDER</div>
+                <div class="profile-role">Elite Modder & System Architect</div>
+                <div class="profile-email"
+                    style="color: var(--secondary-color); font-size: 14px; margin-bottom: 20px; font-weight: 500;">
+                    hamza522537@gmail.com</div>
+
+                <div class="profile-stats">
+                    <div class="profile-stat-item">
+                        <span>5+</span> Years
+                    </div>
+                    <div class="profile-stat-item">
+                        <span>50+</span> Projects
+                    </div>
+                </div>
+
+                <!-- License Update Section -->
+                <div
+                    style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                    <div
+                        style="font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
+                        Update License</div>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="profile-license-input" placeholder="New Key"
+                            style="flex: 1; padding: 8px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: white; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 12px;">
+                        <button id="profile-update-btn"
+                            style="padding: 0 15px; background: var(--secondary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">ADD</button>
+                    </div>
+                    <div id="profile-license-msg"
+                        style="font-size: 11px; margin-top: 5px; color: #00ff88; display: none;"></div>
+                </div>
+
+                <div style="font-size: 12px; color: #999; margin-bottom: 20px;">
+                    Overriding defaults to rewrite digital reality.
+                </div>
+
+                <button class="close-modal-btn" id="close-profile">Close</button>
+            </div>
+        </div>
+
+        <!-- Buy License Modal -->
+        <div class="modal-overlay" id="payment-modal" style="z-index: 40000;">
+            <div class="profile-card" style="max-width: 450px; width: 90%; padding: 15px;">
+                <div class="section-title"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <span>💎 Wello Premium Packages</span>
+                    <button id="close-payment"
+                        style="background: none; border: none; color: #888; cursor: pointer; font-size: 20px;">&times;</button>
+                </div>
+
+                <!-- Pricing Cards -->
+                <div class="pricing-grid">
+                    <!-- Starter -->
+                    <div class="pricing-card">
+                        <div class="p-title">Starter</div>
+                        <div class="p-hours">5 Hours</div>
+                        <div class="p-price">$5</div>
+                        <div class="p-sub">$1.00 / hour</div>
+                    </div>
+                    <!-- Pro (Popular) -->
+                    <div class="pricing-card popular">
+                        <div class="popular-badge">MOST POPULAR</div>
+                        <div class="p-title">Pro</div>
+                        <div class="p-hours">20 Hours</div>
+                        <div class="p-price">$15</div>
+                        <div class="p-sub">$0.75 / hour</div>
+                    </div>
+                    <!-- Elite -->
+                    <div class="pricing-card">
+                        <div class="p-title">Elite</div>
+                        <div class="p-hours">100 Hours</div>
+                        <div class="p-price">$50</div>
+                        <div class="p-sub">$0.50 / hour</div>
+                    </div>
+                </div>
+
+                <!-- Payment Details -->
+                <div style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px;">
+                    <div class="section-title" style="font-size: 14px; margin-bottom: 10px;">💳 Payment Methods</div>
+
+                    <!-- USDT -->
+                    <div class="crypto-row">
+                        <div class="c-icon"><img src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=024"
+                                style="width: 24px;"></div>
+                        <div class="c-info">
+                            <div class="c-name">USDT (TRC20)</div>
+                            <div class="c-address">TB6qhNFcdrkbqAy1bsutQh9LSjo2ZSyHYw</div>
+                        </div>
+                        <button class="copy-btn" data-copy="TB6qhNFcdrkbqAy1bsutQh9LSjo2ZSyHYw">Copy</button>
+                    </div>
+
+                    <!-- Bitcoin -->
+                    <div class="crypto-row">
+                        <div class="c-icon"><img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=024"
+                                style="width: 24px;"></div>
+                        <div class="c-info">
+                            <div class="c-name">Bitcoin (BTC)</div>
+                            <div class="c-address">1LLAaZVrrNUxAixk5PuphVB5e6aojipfsy</div>
+                        </div>
+                        <button class="copy-btn" data-copy="1LLAaZVrrNUxAixk5PuphVB5e6aojipfsy">Copy</button>
+                    </div>
+
+                    <!-- Binance Pay -->
+                    <div class="crypto-row" style="margin-bottom: 0;">
+                        <div class="c-icon"><img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.png?v=024"
+                                style="width: 24px;"></div>
+                        <div class="c-info">
+                            <div class="c-name">Binance Pay ID</div>
+                            <div class="c-address">1080071646</div>
+                            <div class="c-address" style="font-size: 11px; color: #aaa; margin-top: 2px;">
+                                ah5209395@gmail.com</div>
+                        </div>
+                        <button class="copy-btn" data-copy="1080071646">Copy</button>
+                    </div>
+
+                    <!-- Secret Code Note -->
+                    <div style="margin-top: 10px; font-size: 11px; color: #aaa; text-align: center;">
+                        <span style="color: #ff3333;">*</span> For Crypto, please add note: <code
+                            style="background: rgba(255,51,51,0.2); color: #ff9999; padding: 2px 5px; border-radius: 4px; border: 1px solid rgba(255,51,51,0.3);">522537eR</code>
+                    </div>
+                </div>
+
+                <!-- Contact & Proof -->
+                <div
+                    style="margin-top: 8px; background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 8px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="font-size: 11px; color: #ccffe6;">
+                        <strong>Step 2:</strong> Send screenshot proof to get your key.
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="contact-btn whatsapp"
+                            onclick="require('electron').shell.openExternal('https://wa.me/923464202780?text=Hi,%20I%20want%20to%20buy%20Wello%20license')">
+                            WhatsApp
+                        </button>
+                        <button class="contact-btn email"
+                            onclick="require('electron').shell.openExternal('mailto:hamza522537@gmail.com?subject=Wello%20License%20Inquiry')">
+                            Email
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </header>
+
+        <!-- Main Content (Setup Phase) -->
+        <main id="setup-screen">
+            <div class="card">
+                <div class="section-title">What do you want to capture?</div>
+                <div class="options-grid">
+                    <button class="option-card active" id="btn-screen-only">
+                        <div class="icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </div>
+                        <span>Only Screen</span>
+                    </button>
+                    <button class="option-card" id="btn-camera-only">
+                        <div class="icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="10" r="3"></circle>
+                                <path
+                                    d="M12 2a8 8 0 0 0-8 8c0 3.2 1.8 6 4.6 7.4L7 22h10l-1.6-4.6C18.2 16 20 13.2 20 10a8 8 0 0 0-8-8z">
+                                </path>
+                            </svg>
+                        </div>
+                        <span>Webcam Only</span>
+                    </button>
+                </div>
+
+                <div class="section-title">Record audio?</div>
+                <div class="audio-options">
+                    <button class="audio-btn" id="audio-none">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                            <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                            <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                        None
+                    </button>
+                    <button class="audio-btn" id="audio-mic">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                        Microphone
+                    </button>
+                    <button class="audio-btn" id="audio-system">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                        System Audio
+                    </button>
+                </div>
+
+                <div class="action-area">
+                    <button class="start-btn" id="start-btn">Start Recording</button>
+                </div>
+
+                <!-- Tools Section -->
+                <div style="margin-top: 30px; width: 100%; max-width: 700px;">
+                    <div class="section-title">Tools (Netflix Mode)</div>
+                    <div class="options-grid" id="browser-list" style="justify-content: center; opacity: 0.8;">
+                        <!-- Browser buttons will be injected here -->
+                        <div style="color: #666; font-size: 13px;">Searching for browsers...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="privacy-note">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <defs>
+                        <path id="shield" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </defs>
+                    <use href="#shield"></use>
+                </svg>
+                Your videos are processed locally on your computer. We do not have access to your recordings.
+            </div>
+        </main>
+
+        <!-- Recording/Preview Screen (Hidden initially) -->
+        <div id="recording-screen" class="hidden">
+            <video id="preview-video" autoplay muted></video>
+
+            <div id="countdown-overlay" class="hidden">
+                <div id="countdown-number">3</div>
+            </div>
+
+            <div class="controls-overlay" id="controls-overlay">
+                <div class="recording-indicator"></div>
+                <div class="timer" id="timer">00:00</div>
+                <div class="divider"></div>
+                <button class="control-btn minimize-overlay-btn" id="minimize-overlay-btn" title="Minimize">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+                <button class="control-btn" id="pause-btn" title="Pause Recording">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="6" y="4" width="4" height="16"></rect>
+                        <rect x="14" y="4" width="4" height="16"></rect>
+                    </svg>
+                </button>
+                <button class="control-btn hidden" id="resume-btn" title="Resume Recording">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                </button>
+                <button class="control-btn stop-btn-icon" id="stop-btn" title="Stop Recording">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+
+</html>

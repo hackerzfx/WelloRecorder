@@ -1,0 +1,50 @@
+# Build Folders
+build/
+dist/
+release/
+Wello-Final/
+Wello-Portable/
+Wello-Portable-Rec/
+Wello-Final-Portable/
+old/
+backup/
+.vs/
+.cache/
+.vscode/
+
+# Node
+node_modules/
+injector/node_modules/
+injector/build/
+hook_dll/build/
+
+# Logs & Output
+*.log
+*.txt
+output.txt
+key.txt
+short_key.txt
+build_log.txt
+build_log_retry.txt
+build_debug.log
+
+# Binaries
+*.dll
+*.node
+*.obj
+*.exe
+*.rar
+*.zip
+*.7z
+*.msi
+
+# Scripts
+*.ps1
+*.bat
+
+# Patchers (Binaries)
+patcher_*.exe
+
+# Exceptions (if patchers are source, un-comment next line. Assuming they are built for now)
+# !wello_hook.dll
+

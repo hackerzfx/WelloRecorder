@@ -1,0 +1,21 @@
+{
+  "name": "wello",
+  "version": "1.0.0",
+  "description": "A high-performance screen recorder",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager . Wello --platform=win32 --arch=x64 --out=release --overwrite --prune=true --asar --ignore=\"^/(LicenseGenerator|release|dist|Wello-Final|\\.git|\\.github|\\.cache|\\.vscode|logs|screenshots|output\\.txt|test-license-logic\\.js|short_key\\.txt|reset-license\\.js)\" --extra-resource=\"patcher_x64.exe\" --extra-resource=\"patcher_x86.exe\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Hamza Modder",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "latest",
+    "electron-packager": "latest"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  }
+}

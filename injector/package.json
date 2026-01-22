@@ -1,0 +1,13 @@
+{
+    "name": "wello-injector",
+    "version": "1.0.0",
+    "description": "DLL injection native addon for Wello Recorder",
+    "main": "index.js",
+    "scripts": {
+        "install": "node-gyp rebuild"
+    },
+    "dependencies": {
+        "node-addon-api": "^8.0.0"
+    },
+    "gypfile": true
+}
