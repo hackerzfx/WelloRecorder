@@ -48,14 +48,6 @@ Launch **XVast** directly from Wello Recorder.
 
 - **Antivirus**: May flag as false positive (Open Source, check code)
 
-## Development
-
-```bash
-git clone https://github.com/hackerzfx/WelloRecorder.git
-cd WelloRecorder
-npm install
-npm start
-```
 
 ## License & Author
 
