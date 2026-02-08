@@ -47,7 +47,7 @@ New users automatically get a **20-minute free trial** (0.34 hours) to test the 
 
 ## License & Author
 
-MIT License • **Hamza Modder** • 
+MIT License • **Hamza Modder** •  Email : Taghere71@gmail.com , Haamza522537@gmail.com
 
 ---
 
